@@ -1,10 +1,11 @@
 package xyz.supersec.secmanager;
 
-import org.objectweb.asm.ClassWriter;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
+@MapperScan("xyz.supersec.secmanager.db.mapper")
 public class SecManagerApplication {
 
 
