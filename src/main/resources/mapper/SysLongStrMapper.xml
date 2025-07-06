@@ -1,5 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="xyz.supersec.secmanager.db.mapper.SysLongStrMapper">
+ <resultMap type="xyz.supersec.secmanager.db.entity.SysLongStr" id="SysLongStrMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="subId" column="sub_id" jdbcType="INTEGER"/>
+        <result property="content" column="content" jdbcType="VARCHAR"/>
+        <result property="dataFlag" column="data_flag" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
 
+    <select id="getMaxId" resultType="int">
+        select ifnull(max(sr.id),0) from sys_long_str sr
+    </select>
+
+    <!-- 批量插入 -->
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into explore.sys_long_str(sub_id, content, data_flag, update_time, create_time)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.subId}, #{entity.content}, #{entity.dataFlag}, #{entity.updateTime}, #{entity.createTime})
+        </foreach>
+    </insert>
+    <!-- 批量插入或按主键更新 -->
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into explore.sys_long_str(sub_id, content, data_flag, update_time, create_time)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.subId}, #{entity.content}, #{entity.dataFlag}, #{entity.updateTime}, #{entity.createTime})
+        </foreach>
+        on duplicate key update
+        sub_id = values(sub_id) , content = values(content) , data_flag = values(data_flag) , update_time =
+        values(update_time) , create_time = values(create_time)
+    </insert>
 </mapper>

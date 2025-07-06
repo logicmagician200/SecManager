@@ -1,5 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="xyz.supersec.secmanager.db.mapper.LogScanInsnMapper">
+ <resultMap type="xyz.supersec.secmanager.db.entity.LogScanInsn" id="LogScanInsnMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="logScanId" column="log_scan_id" jdbcType="INTEGER"/>
+        <result property="opcode" column="opcode" jdbcType="VARCHAR"/>
+        <result property="str2" column="str2" jdbcType="VARCHAR"/>
+        <result property="str3" column="str3" jdbcType="VARCHAR"/>
+        <result property="str4" column="str4" jdbcType="VARCHAR"/>
+        <result property="str5" column="str5" jdbcType="VARCHAR"/>
+        <result property="insnIndex" column="insn_index" jdbcType="INTEGER"/>
+        <result property="sourceLine" column="source_line" jdbcType="INTEGER"/>
+        <result property="dataFlag" column="data_flag" jdbcType="VARCHAR"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!-- 批量插入 -->
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into explore.log_scan_insn(log_scan_id, opcode, str2, str3, str4, str5, insn_index, source_line,
+        data_flag, remark, update_time, create_time)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.logScanId}, #{entity.opcode}, #{entity.str2}, #{entity.str3}, #{entity.str4}, #{entity.str5},
+            #{entity.insnIndex}, #{entity.sourceLine}, #{entity.dataFlag}, #{entity.remark}, #{entity.updateTime},
+            #{entity.createTime})
+        </foreach>
+    </insert>
+    <!-- 批量插入或按主键更新 -->
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into explore.log_scan_insn(log_scan_id, opcode, str2, str3, str4, str5, insn_index, source_line,
+        data_flag, remark, update_time, create_time)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.logScanId}, #{entity.opcode}, #{entity.str2}, #{entity.str3}, #{entity.str4}, #{entity.str5},
+            #{entity.insnIndex}, #{entity.sourceLine}, #{entity.dataFlag}, #{entity.remark}, #{entity.updateTime},
+            #{entity.createTime})
+        </foreach>
+        on duplicate key update
+        log_scan_id = values(log_scan_id) , opcode = values(opcode) , str2 = values(str2) , str3 = values(str3) , str4 =
+        values(str4) , str5 = values(str5) , insn_index = values(insn_index) , source_line = values(source_line) ,
+        data_flag = values(data_flag) , remark = values(remark) , update_time = values(update_time) , create_time =
+        values(create_time)
+    </insert>
 
 </mapper>

@@ -1,5 +1,7 @@
 package xyz.supersec.secmanager.db.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
@@ -16,5 +18,7 @@ import xyz.supersec.secmanager.db.entity.BcInsnIntInsn;
  */
 @Mapper
 public interface BcInsnIntInsnMapper extends BaseMapper<BcInsnIntInsn> {
+    boolean save(BcInsnIntInsn entity);
 
+    boolean saveBatch(List<BcInsnIntInsn> entityList);
 }

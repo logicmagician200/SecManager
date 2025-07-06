@@ -1,6 +1,9 @@
 package xyz.supersec.secmanager.db.mapper;
 
+import java.util.List;
+
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+
 import xyz.supersec.secmanager.db.entity.SysTaskInfo;
 
 /**
@@ -12,5 +15,4 @@ import xyz.supersec.secmanager.db.entity.SysTaskInfo;
  * @since 2025-07-06
  */
 public interface SysTaskInfoMapper extends BaseMapper<SysTaskInfo> {
-
 }

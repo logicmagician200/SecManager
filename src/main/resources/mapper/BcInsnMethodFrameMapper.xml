@@ -2,4 +2,45 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="xyz.supersec.secmanager.db.mapper.BcInsnMethodFrameMapper">
 
+    <resultMap type="xyz.supersec.secmanager.db.entity.BcInsnMethodFrame" id="BcInsnMethodFrameMap">
+        <result property="methodUuid" column="method_uuid" jdbcType="VARCHAR"/>
+        <result property="label" column="label" jdbcType="VARCHAR"/>
+        <result property="sourceLine" column="source_line" jdbcType="INTEGER"/>
+        <result property="type" column="type" jdbcType="INTEGER"/>
+        <result property="numLocal" column="num_local" jdbcType="INTEGER"/>
+        <result property="local" column="local" jdbcType="VARCHAR"/>
+        <result property="numStack" column="num_stack" jdbcType="INTEGER"/>
+        <result property="stack" column="stack" jdbcType="VARCHAR"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!-- 批量插入 -->
+    <insert id="insertBatch" keyProperty="" useGeneratedKeys="true">
+        insert into explore.bc_insn_method_frame(method_uuid, label, source_line, type, num_local, local, num_stack,
+        stack, remark, update_time, create_time)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.methodUuid}, #{entity.label}, #{entity.sourceLine}, #{entity.type}, #{entity.numLocal},
+            #{entity.local}, #{entity.numStack}, #{entity.stack}, #{entity.remark}, #{entity.updateTime},
+            #{entity.createTime})
+        </foreach>
+    </insert>
+    <!-- 批量插入或按主键更新 -->
+    <insert id="insertOrUpdateBatch" keyProperty="" useGeneratedKeys="true">
+        insert into explore.bc_insn_method_frame(method_uuid, label, source_line, type, num_local, local, num_stack,
+        stack, remark, update_time, create_time)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.methodUuid}, #{entity.label}, #{entity.sourceLine}, #{entity.type}, #{entity.numLocal},
+            #{entity.local}, #{entity.numStack}, #{entity.stack}, #{entity.remark}, #{entity.updateTime},
+            #{entity.createTime})
+        </foreach>
+        on duplicate key update
+        method_uuid = values(method_uuid) , label = values(label) , source_line = values(source_line) , type =
+        values(type) , num_local = values(num_local) , local = values(local) , num_stack = values(num_stack) , stack =
+        values(stack) , remark = values(remark) , update_time = values(update_time) , create_time = values(create_time)
+    </insert>
+
 </mapper>

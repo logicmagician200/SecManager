@@ -1,5 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="xyz.supersec.secmanager.db.mapper.BcAnnContentMapper">
+    
+    <resultMap type="xyz.supersec.secmanager.db.entity.BcAnnContent" id="BcAnnContentMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="annId" column="ann_id" jdbcType="INTEGER"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="descriptor" column="descriptor" jdbcType="VARCHAR"/>
+        <result property="value" column="value" jdbcType="VARCHAR"/>
+        <result property="numOfUpdate" column="num_of_update" jdbcType="INTEGER"/>
+        <result property="dataFlag" column="data_flag" jdbcType="VARCHAR"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!-- 批量插入 -->
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into explore.bc_ann_content(ann_id, name, descriptor, value, num_of_update, data_flag, remark,
+        update_time, create_time)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.annId}, #{entity.name}, #{entity.descriptor}, #{entity.value}, #{entity.numOfUpdate},
+            #{entity.dataFlag}, #{entity.remark}, #{entity.updateTime}, #{entity.createTime})
+        </foreach>
+    </insert>
+    <!-- 批量插入或按主键更新 -->
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into explore.bc_ann_content(ann_id, name, descriptor, value, num_of_update, data_flag, remark,
+        update_time, create_time)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.annId}, #{entity.name}, #{entity.descriptor}, #{entity.value}, #{entity.numOfUpdate},
+            #{entity.dataFlag}, #{entity.remark}, #{entity.updateTime}, #{entity.createTime})
+        </foreach>
+        on duplicate key update
+        ann_id = values(ann_id) , name = values(name) , descriptor = values(descriptor) , value = values(value) ,
+        num_of_update = values(num_of_update) , data_flag = values(data_flag) , remark = values(remark) , update_time =
+        values(update_time) , create_time = values(create_time)
+    </insert>
 
 </mapper>

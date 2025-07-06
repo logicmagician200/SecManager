@@ -2,4 +2,58 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="xyz.supersec.secmanager.db.mapper.BcMethodInfoMapper">
 
+    <resultMap type="xyz.supersec.secmanager.db.entity.BcMethodInfo" id="BcMethodInfoMap">
+        <result property="pId" column="p_id" jdbcType="INTEGER"/>
+        <result property="classUuid" column="class_uuid" jdbcType="VARCHAR"/>
+        <result property="uuid" column="uuid" jdbcType="VARCHAR"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="descriptor" column="descriptor" jdbcType="VARCHAR"/>
+        <result property="signature" column="signature" jdbcType="VARCHAR"/>
+        <result property="access" column="access" jdbcType="INTEGER"/>
+        <result property="accessFlag" column="access_flag" jdbcType="VARCHAR"/>
+        <result property="exceptions" column="exceptions" jdbcType="VARCHAR"/>
+        <result property="maxStack" column="max_stack" jdbcType="INTEGER"/>
+        <result property="maxLocals" column="max_locals" jdbcType="INTEGER"/>
+        <result property="numOfUpdate" column="num_of_update" jdbcType="INTEGER"/>
+        <result property="dataFlag" column="data_flag" jdbcType="VARCHAR"/>
+        <result property="maxInsnIndex" column="max_insn_index" jdbcType="INTEGER"/>
+        <result property="attribute" column="attribute" jdbcType="VARCHAR"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!-- 批量插入 -->
+    <insert id="insertBatch" keyProperty="" useGeneratedKeys="true">
+        insert into explore.bc_method_info(p_id, class_uuid, uuid, name, descriptor, signature, access, access_flag,
+        exceptions, max_stack, max_locals, num_of_update, data_flag, max_insn_index, attribute, remark, update_time,
+        create_time)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.pId}, #{entity.classUuid}, #{entity.uuid}, #{entity.name}, #{entity.descriptor},
+            #{entity.signature}, #{entity.access}, #{entity.accessFlag}, #{entity.exceptions}, #{entity.maxStack},
+            #{entity.maxLocals}, #{entity.numOfUpdate}, #{entity.dataFlag}, #{entity.maxInsnIndex}, #{entity.attribute},
+            #{entity.remark}, #{entity.updateTime}, #{entity.createTime})
+        </foreach>
+    </insert>
+    <!-- 批量插入或按主键更新 -->
+    <insert id="insertOrUpdateBatch" keyProperty="" useGeneratedKeys="true">
+        insert into explore.bc_method_info(p_id, class_uuid, uuid, name, descriptor, signature, access, access_flag,
+        exceptions, max_stack, max_locals, num_of_update, data_flag, max_insn_index, attribute, remark, update_time,
+        create_time)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.pId}, #{entity.classUuid}, #{entity.uuid}, #{entity.name}, #{entity.descriptor},
+            #{entity.signature}, #{entity.access}, #{entity.accessFlag}, #{entity.exceptions}, #{entity.maxStack},
+            #{entity.maxLocals}, #{entity.numOfUpdate}, #{entity.dataFlag}, #{entity.maxInsnIndex}, #{entity.attribute},
+            #{entity.remark}, #{entity.updateTime}, #{entity.createTime})
+        </foreach>
+        on duplicate key update
+        p_id = values(p_id) , class_uuid = values(class_uuid) , uuid = values(uuid) , name = values(name) , descriptor =
+        values(descriptor) , signature = values(signature) , access = values(access) , access_flag = values(access_flag)
+        , exceptions = values(exceptions) , max_stack = values(max_stack) , max_locals = values(max_locals) ,
+        num_of_update = values(num_of_update) , data_flag = values(data_flag) , max_insn_index = values(max_insn_index)
+        , attribute = values(attribute) , remark = values(remark) , update_time = values(update_time) , create_time =
+        values(create_time)
+    </insert>
 </mapper>
