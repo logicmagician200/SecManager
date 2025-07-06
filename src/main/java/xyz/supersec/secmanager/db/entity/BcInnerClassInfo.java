@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 /**
  * <p>
@@ -20,6 +21,7 @@ import lombok.Data;
 @TableName("bc_inner_class_info")
 @ApiModel(value = "BcInnerClassInfo对象", description = "")
 @Data
+@Accessors(chain = true)
 public class BcInnerClassInfo implements Serializable {
 
     private static final long serialVersionUID = 1L;

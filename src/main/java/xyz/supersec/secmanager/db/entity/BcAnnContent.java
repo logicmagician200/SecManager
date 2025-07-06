@@ -10,6 +10,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 /**
  * <p>
@@ -22,6 +23,7 @@ import lombok.Data;
 @TableName("bc_ann_content")
 @ApiModel(value = "BcAnnContent对象", description = "注解的内容")
 @Data
+@Accessors(chain = true)
 public class BcAnnContent implements Serializable {
 
     private static final long serialVersionUID = 1L;

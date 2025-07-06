@@ -10,7 +10,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-
+import lombok.experimental.Accessors;
 /**
  * <p>
  * 
@@ -22,6 +22,7 @@ import lombok.Data;
 @TableName("bc_insn_table_switch_insn")
 @ApiModel(value = "BcInsnTableSwitchInsn对象", description = "")
 @Data
+@Accessors(chain = true)
 public class BcInsnTableSwitchInsn implements Serializable {
 
     private static final long serialVersionUID = 1L;

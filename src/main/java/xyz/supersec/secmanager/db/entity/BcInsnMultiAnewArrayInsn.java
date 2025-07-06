@@ -10,6 +10,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 /**
  * <p>
@@ -22,6 +23,7 @@ import lombok.Data;
 @TableName("bc_insn_multi_anew_array_insn")
 @ApiModel(value = "BcInsnMultiAnewArrayInsn对象", description = "")
 @Data
+@Accessors(chain = true)
 public class BcInsnMultiAnewArrayInsn implements Serializable {
 
     private static final long serialVersionUID = 1L;
